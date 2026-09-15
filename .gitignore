@@ -1,0 +1,26 @@
+# Jupyter
+.ipynb_checkpoints/
+
+# PyTorch Lightning
+lightning_logs/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local data
+*.xlsx
+*.parquet
