@@ -1,4 +1,4 @@
-"""Input validation and conversion to the MLForecast time-series schema."""
+"""ПОДГОТОВКА И ВАЛИДАЦИЯ ВХОДЯЩИХ ДАННЫХ"""
 
 import pandas as pd
 
