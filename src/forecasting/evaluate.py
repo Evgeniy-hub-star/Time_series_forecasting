@@ -1,4 +1,4 @@
-"""Forecast quality metrics and alignment."""
+"""Фрасчет единых метрик оценки качества прогноза"""
 
 import numpy as np
 import pandas as pd
