@@ -1,18 +1,17 @@
 # Development setup
 
-Use Python 3.11 (the original notebook records Python 3.11.15).
+Use Python 3.12 (the original notebook records Python 3.11.15; model compatibility must be rechecked).
 
 ## Install
 
 ```bash
 python -m pip install poetry
-poetry env use python3.11
+poetry env use python
 poetry install
 poetry run pre-commit install
 ```
 
-On Windows, use `py -3.11` to locate Python if `python3.11` is unavailable.
-Poetry can also use an already-active Python 3.11 environment.
+On Windows, verify Python 3.12 with `py -3.12 --version` and select its full executable path with `poetry env use` if another Python is active.
 
 ## Check
 
