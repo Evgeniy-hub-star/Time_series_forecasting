@@ -15,9 +15,7 @@ def prepare_forecast_format(data: pd.DataFrame) -> pd.DataFrame:
 
     result = data.loc[:, REQUIRED_COLUMNS].copy()
     result["ds"] = pd.to_datetime(result["date"], errors="raise")
-    result["unique_id"] = (
-        result["store"].astype(str) + "_" + result["item"].astype(str)
-    )
+    result["unique_id"] = result["store"].astype(str) + "_" + result["item"].astype(str)
     result = result.rename(columns={"sales": "y"})
     if not pd.api.types.is_numeric_dtype(result["y"]):
         raise ValueError("sales must be numeric")

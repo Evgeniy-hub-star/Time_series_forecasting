@@ -10,7 +10,11 @@ def calculate_metrics(y_true, y_pred) -> dict[str, float]:
     predicted = np.asarray(y_pred, dtype=float)
     if actual.ndim != 1 or predicted.ndim != 1 or actual.size != predicted.size:
         raise ValueError("Targets and predictions must be 1D arrays of equal length")
-    if actual.size == 0 or not np.isfinite(actual).all() or not np.isfinite(predicted).all():
+    if (
+        actual.size == 0
+        or not np.isfinite(actual).all()
+        or not np.isfinite(predicted).all()
+    ):
         raise ValueError("Targets and predictions must be nonempty and finite")
     errors = actual - predicted
     mask = actual != 0
