@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from forecasting.model_io import load_model
 from forecasting.pipeline import run_pipeline
 
 
@@ -85,3 +86,40 @@ def test_pipeline_insufficient_history(tmp_path):
             data_path=str(file_path),
             horizon=7,
         )
+
+
+def test_pipeline_saves_model(tmp_path):
+    import pandas as pd
+
+    from forecasting.pipeline import run_pipeline
+
+    dates = pd.date_range("2023-01-01", periods=220, freq="D")
+
+    data = pd.DataFrame(
+        {
+            "date": dates,
+            "store": 1,
+            "item": 1,
+            "sales": [20 + i % 7 for i in range(len(dates))],
+        }
+    )
+
+    data_path = tmp_path / "train.csv"
+    model_path = tmp_path / "model.joblib"
+
+    data.to_csv(data_path, index=False)
+
+    metrics = run_pipeline(
+        data_path=str(data_path),
+        horizon=7,
+        model_path=model_path,
+    )
+
+    assert model_path.exists()
+
+    loaded_model = load_model(model_path)
+
+    assert loaded_model is not None
+    assert "MAE" in metrics
+    assert "RMSE" in metrics
+    assert "MAPE" in metrics

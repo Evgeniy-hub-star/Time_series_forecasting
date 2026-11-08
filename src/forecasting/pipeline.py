@@ -7,6 +7,7 @@ import pandas as pd
 
 from forecasting.data import prepare_forecast_format
 from forecasting.evaluate import evaluate_forecast
+from forecasting.model_io import save_model
 from forecasting.predict import predict_model
 from forecasting.train import create_model, train_model
 
@@ -15,6 +16,7 @@ def run_pipeline(
     data_path: str,
     horizon: int = 90,
     max_series: int | None = None,
+    model_path: str | Path | None = None,
 ) -> dict[str, float]:
     """Train, predict and evaluate a Random Forest model."""
     if horizon <= 0:
@@ -42,6 +44,9 @@ def run_pipeline(
     forecast = create_model()
     forecast = train_model(train, forecast)
 
+    if model_path is not None:
+        save_model(forecast, model_path)
+
     predictions = predict_model(forecast, horizon=horizon)
     metrics = evaluate_forecast(
         actual=test,
@@ -59,6 +64,7 @@ def main() -> None:
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--horizon", type=int, default=90)
     parser.add_argument("--max-series", type=int, default=None)
+    parser.add_argument("--model-path", type=Path, default=None)
 
     args = parser.parse_args()
 
@@ -66,6 +72,7 @@ def main() -> None:
         data_path=str(args.data),
         horizon=args.horizon,
         max_series=args.max_series,
+        model_path=args.model_path,
     )
 
     print("Forecast evaluation:")
