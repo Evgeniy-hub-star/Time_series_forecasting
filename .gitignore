@@ -24,3 +24,11 @@ Thumbs.db
 # Local data
 *.xlsx
 *.parquet
+
+# Local Poetry configuration
+poetry.toml
+# Trained models
+models/
+
+# Geerated forecasts
+predictions/

@@ -58,11 +58,7 @@ unique_id | ds | y
 Пример формирования идентификатора:
 
 ```python
-result["unique_id"] = (
-    result["store"].astype(str)
-    + "_"
-    + result["item"].astype(str)
-)
+result["unique_id"] = result["store"].astype(str) + "_" + result["item"].astype(str)
 ```
 
 ## 2.2. Разбиение данных
@@ -148,11 +144,7 @@ N-BEATS и N-HITS ориентированы непосредственно на
 
 ```python
 LGBMRegressor(
-    n_estimators=500,
-    learning_rate=0.05,
-    num_leaves=31,
-    random_state=42,
-    verbosity=-1
+    n_estimators=500, learning_rate=0.05, num_leaves=31, random_state=42, verbosity=-1
 )
 ```
 
@@ -166,7 +158,7 @@ XGBRegressor(
     subsample=0.8,
     colsample_bytree=0.8,
     random_state=42,
-    objective="reg:squarederror"
+    objective="reg:squarederror",
 )
 ```
 
@@ -174,11 +166,7 @@ XGBRegressor(
 
 ```python
 RandomForestRegressor(
-    n_estimators=200,
-    max_depth=15,
-    min_samples_leaf=2,
-    random_state=42,
-    n_jobs=-1
+    n_estimators=200, max_depth=15, min_samples_leaf=2, random_state=42, n_jobs=-1
 )
 ```
 
@@ -221,7 +209,7 @@ LSTM(
     decoder_hidden_size=32,
     decoder_layers=1,
     max_steps=300,
-    scaler_type="standard"
+    scaler_type="standard",
 )
 ```
 
@@ -388,23 +376,12 @@ EDA и анализ временных рядов
 def prepare_forecast_format(data):
     result = data.copy()
 
-    result["unique_id"] = (
-        result["store"].astype(str)
-        + "_"
-        + result["item"].astype(str)
-    )
+    result["unique_id"] = result["store"].astype(str) + "_" + result["item"].astype(str)
 
-    result = result.rename(
-        columns={
-            "date": "ds",
-            "sales": "y"
-        }
-    )
+    result = result.rename(columns={"date": "ds", "sales": "y"})
 
     return (
-        result[
-            ["unique_id", "ds", "y"]
-        ]
+        result[["unique_id", "ds", "y"]]
         .sort_values(["unique_id", "ds"])
         .reset_index(drop=True)
     )
@@ -450,4 +427,3 @@ MAPE = 13.569%
 При этом **Random Forest** показала лучший результат среди ML-моделей, а **LightGBM** — лучший MAPE среди рассмотренных моделей.
 
 Проведённый backtesting подтверждает устойчивость N-BEATS на различных временных срезах. Поэтому N-BEATS выбрана в качестве основной модели для дальнейшего прогнозирования продаж на горизонте 90 дней.
-
