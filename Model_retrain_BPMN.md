@@ -1,6 +1,6 @@
 # Процесс автоматического переобучения Random Forest
 
-ДЗ №3. Проектируемый процесс от триггера до выпуска новой версии. Основан на [схеме Дарьи](https://github.com/romanenkodaria-prog/Time_series_forecasting_Daria/blob/main/Model_retrain_BPMN.md), адаптированной к MLForecast и joblib.
+ДЗ №3. Проектируемый процесс от триггера до выпуска новой версии. 
 
 ## 1. Цель и статус
 
